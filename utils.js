@@ -1,3 +1,11 @@
+const getMaxX = PLATAEU_SIZE => {
+  return PLATAEU_SIZE.split(" ")[0];
+};
+
+const getMaxY = PLATAEU_SIZE => {
+  return PLATAEU_SIZE.split(" ")[1];
+};
+
 const getInitialDirection = INITIAL_POS => {
   return INITIAL_POS.charAt(INITIAL_POS.length - 1);
 };
@@ -67,6 +75,8 @@ const getFinalPosition = (
 };
 
 module.exports = {
+  getMaxX,
+  getMaxY,
   getInitialDirection,
   getInitialX,
   getInitialY,
