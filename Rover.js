@@ -32,19 +32,39 @@ class Rover {
   }
 
   moveN(currentY) {
-    return (+currentY + 1).toString();
+    const incY = +currentY + 1;
+    if (incY > this.maxY) {
+      this.dropped = true;
+      return currentY;
+    }
+    return incY.toString();
   }
 
   moveS(currentY) {
-    return (+currentY - 1).toString();
+    const decY = +currentY - 1;
+    if (decY < 0) {
+      this.dropped = true;
+      return currentY;
+    }
+    return decY.toString();
   }
 
   moveE(currentX) {
-    return (+currentX + 1).toString();
+    const incX = +currentX + 1;
+    if (incX > this.maxX) {
+      this.dropped = true;
+      return currentX;
+    }
+    return incX.toString();
   }
 
   moveW(currentX) {
-    return (+currentX - 1).toString();
+    const decX = +currentX - 1;
+    if (decX < 0) {
+      this.dropped = true;
+      return currentX;
+    }
+    return decX.toString();
   }
 
   getFinalPosition() {
