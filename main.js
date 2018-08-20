@@ -17,7 +17,6 @@ const main = async () => {
   );
   console.log("Move Instructions for Rover is", INSTRUCTIONS);
 
-  // TODO: include the functions that you've implemented for this kata
   const rover = new Rover(PLATAEU_SIZE, INITIAL_POS, INSTRUCTIONS);
   const result = rover.getFinalPosition();
 
