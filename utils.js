@@ -17,6 +17,13 @@ const changeDirectionToLeft = currentDirection => {
   return compass[currIndex - 1];
 };
 
+const changeDirectionToRight = currentDirection => {
+  if (currentDirection === "W") return "N";
+  const compass = ["N", "E", "S", "W"];
+  const currIndex = compass.indexOf(currentDirection);
+  return compass[currIndex + 1];
+};
+
 const moveN = yPosition => {
   return (+yPosition + 1).toString();
 };
@@ -46,6 +53,8 @@ const getFinalPosition = (
   instructionsArr.forEach(instruction => {
     if (instruction === "L")
       currentDirection = changeDirectionToLeft(currentDirection);
+    if (instruction === "R")
+      currentDirection = changeDirectionToRight(currentDirection);
     if (instruction === "M") {
       if (currentDirection === "N") currentY = moveN(currentY);
       if (currentDirection === "S") currentY = moveS(currentY);
@@ -66,5 +75,6 @@ module.exports = {
   moveS,
   moveE,
   moveW,
-  getFinalPosition
+  getFinalPosition,
+  changeDirectionToRight
 };
