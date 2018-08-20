@@ -6,6 +6,8 @@ const {
   getInitialY
 } = require("./utils");
 
+let sucidePositions = [];
+
 class Rover {
   constructor(PLATAEU_SIZE, INITIAL_POS, INSTRUCTIONS) {
     this.maxX = getMaxX(PLATAEU_SIZE);
@@ -15,6 +17,7 @@ class Rover {
     this.currentDirection = getInitialDirection(INITIAL_POS);
     this.instructions = INSTRUCTIONS;
     this.dropped = false;
+    this.sucidePositions = sucidePositions;
   }
 
   changeDirectionToLeft(currentDirection) {
@@ -33,9 +36,11 @@ class Rover {
 
   moveN(currentY) {
     const incY = +currentY + 1;
+    const currentPosition = this.currentX + "," + currentY;
+    if (incY > this.maxY && this.sucidePositions.indexOf(currentPosition) >= 0) return currentY
     if (incY > this.maxY) {
-      this.dropped = true;
-      return currentY;
+      this.dropped = true
+      return currentY
     }
     return incY.toString();
   }
@@ -51,9 +56,11 @@ class Rover {
 
   moveE(currentX) {
     const incX = +currentX + 1;
+    const currentPosition = currentX + "," + this.currentY;
+    if (incX > this.maxX && this.sucidePositions.indexOf(currentPosition) >= 0) return currentX
     if (incX > this.maxX) {
       this.dropped = true;
-      return currentX;
+      return currentX
     }
     return incX.toString();
   }
@@ -71,7 +78,17 @@ class Rover {
     const instructionsArr = this.instructions.split("");
     let result;
     instructionsArr.forEach(instruction => {
-      if (this.dropped === false) {
+      if (this.dropped === true) {
+        const sucidePosition = this.currentX + "," + this.currentY;
+        this.sucidePositions.push(sucidePosition);
+        result =
+          this.currentX +
+          " " +
+          this.currentY +
+          " " +
+          this.currentDirection +
+          " RIP";
+      } else {
         if (instruction === "L")
           this.currentDirection = this.changeDirectionToLeft(
             this.currentDirection
@@ -92,14 +109,6 @@ class Rover {
         }
         result =
           this.currentX + " " + this.currentY + " " + this.currentDirection;
-      } else {
-        result =
-          this.currentX +
-          " " +
-          this.currentY +
-          " " +
-          this.currentDirection +
-          " RIP";
       }
     });
     return result;

@@ -65,7 +65,15 @@ test("Rover.getFinalPosition should return position of Rover after executing ins
   expect(rover.getFinalPosition()).toEqual("1 3 N");
 });
 
-test("Rover.getFinalPosition returns RIP if dropped", () => {
-  const rover = new Rover("5 5", "3 3 E", "MMRMMLMRRM");
-  expect(rover.getFinalPosition()).toEqual("5 1 E RIP");
+test("Rover.getFinalPosition return RIP if dropped and stores where it drop in sucidePositions", () => {
+  const roverDown = new Rover("5 5", "3 3 E", "MMRMMLMRRM");
+  expect(roverDown.getFinalPosition()).toEqual("5 1 E RIP");
+  const rover = new Rover("5 5","4 1 S", "M")
+  expect(rover.sucidePositions).toContain("5,1");
+});
+
+test("Rover about to drop off should not move in that direction if there have been an sucide earlier", () => {
+  const rover = new Rover("5 5","4 1 S", "MLMLMRMRM")
+  expect(rover.sucidePositions).toContain("5,1")
+  expect(rover.getFinalPosition()).toEqual("5 0 S")
 });
