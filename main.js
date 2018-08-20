@@ -1,5 +1,10 @@
 const { getUserInput, rl } = require("./readline-helper");
-const {getInitialDirection, getInitialX, getInitialY} = require("./utils")
+const {
+  getInitialDirection,
+  getInitialX,
+  getInitialY,
+  getFinalPosition
+} = require("./utils");
 
 const main = async () => {
   const PLATAEU_SIZE = await getUserInput(
@@ -18,12 +23,14 @@ const main = async () => {
   console.log("Move Instructions for Rover is", INSTRUCTIONS);
 
   // TODO: include the functions that you've implemented for this kata
-  let currentDirection = getInitialDirection(INITIAL_POS)
-  let currentX = getInitialX(INITIAL_POS)
-  let currentY = getInitialY(INITIAL_POS)
+  let initialDirection = getInitialDirection(INITIAL_POS);
+  let initialX = getInitialX(INITIAL_POS);
+  let initialY = getInitialY(INITIAL_POS);
+
+  const result = getFinalPosition(INSTRUCTIONS,initialX,initialY,initialDirection)
 
   console.log(
-    "The final coordinates of the mars rover is: <replace with the output of your program>"
+    `The final coordinates of the mars rover is: ${result}`
   );
 
   rl.close();
